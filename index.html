@@ -3,165 +3,108 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hej Króliki 🐰 — Oficjalnie</title>
-  <meta name="description" content="Oficjalna strona Hej Króliki — społeczność, Discord, aktualności." />
+  <title>Hej Króliki 🐰 — W Przebudowie</title>
+  <meta name="description" content="Oficjalna strona Hej Króliki jest w przebudowie — wracamy wkrótce! Dołącz na Discord." />
 
   <style>
     :root{
-      --bg:#fff7f0;        /* very light orange */
-      --accent:#ff6a00;    /* bright orange */
-      --accent-2:#ff8a3d;  /* lighter orange */
+      --bg:#fff7f0;
+      --accent:#ff6a00;
+      --accent-2:#ff8a3d;
       --muted:#6b6b6b;
       --card:#ffffff;
       --radius:14px;
-      --maxw:980px;
-      --glass: rgba(255,255,255,0.6);
-      color-scheme: light;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#fff);}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;background:linear-gradient(180deg,var(--bg),#fff);color:#222;display:flex;align-items:center;justify-content:center;text-align:center}
 
-    header{
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:white;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 6px 24px rgba(0,0,0,0.08);
+    .container{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:24px;
+      padding:20px;
     }
-    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
-    .logo{width:46px;height:46px;border-radius:10px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:22px}
 
-    main{max-width:var(--maxw);margin:36px auto;padding:20px}
-
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
-    .hero-card{background:var(--card);padding:36px;border-radius:var(--radius);box-shadow:0 10px 30px rgba(13,13,13,0.06)}
-
-    h1{margin:0 0 8px;font-size:34px;line-height:1.03}
-    p.lead{margin:0 0 18px;color:var(--muted);font-size:15px}
-
-    .cta{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
-    .btn-primary{background:var(--accent);color:white;box-shadow:0 6px 18px rgba(255,106,0,0.18)}
-    .btn-ghost{background:transparent;color:var(--accent);border:1px solid rgba(255,106,0,0.14)}
-
-    .card-side{background:linear-gradient(180deg, rgba(255,138,61,0.06), rgba(255,106,0,0.03));padding:22px;border-radius:12px}
-    .card-side h3{margin:0 0 6px}
-    .card-side p{margin:0;color:var(--muted)}
-
-    section.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
-    .feature{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(12,12,12,0.04)}
-    .feature h4{margin:0 0 8px}
-    .feature p{margin:0;color:var(--muted);font-size:14px}
-
-    footer{max-width:var(--maxw);margin:28px auto;padding:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center}
-
-    /* responsive */
-    @media (max-width:920px){
-      .hero{grid-template-columns:1fr}
-      .card-side{order:-1}
+    .gear{
+      width:80px;
+      height:80px;
+      border:8px solid var(--accent);
+      border-radius:50%;
+      position:relative;
+      animation:spin 4s linear infinite;
     }
-    @media (max-width:520px){
-      h1{font-size:28px}
-      .hero-card{padding:20px}
-      .logo{width:40px;height:40px}
+
+    .gear::before, .gear::after{
+      content:"";
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:100%;
+      height:100%;
+      transform:translate(-50%,-50%) rotate(45deg);
+      border:8px solid var(--accent);
+      border-radius:50%;
+    }
+
+    @keyframes spin{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+
+    h1{
+      font-size:40px;
+      font-weight:800;
+      color:var(--accent);
+    }
+
+    p{
+      color:var(--muted);
+      font-size:16px;
+    }
+
+    .btn{
+      background:var(--accent);
+      color:white;
+      padding:14px 22px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:16px;
+      box-shadow:0 6px 18px rgba(255,106,0,0.25);
+      transition:all .25s ease;
+    }
+    .btn:hover{
+      background:var(--accent-2);
+      transform:translateY(-2px);
+    }
+
+    footer{
+      position:fixed;
+      bottom:12px;
+      width:100%;
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    @media(max-width:520px){
+      h1{font-size:30px}
+      .gear{width:60px;height:60px;border-width:6px}
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <div class="logo">🐰</div>
-      <div>
-        <div style="font-size:15px">Hej Króliki</div>
-        <div style="font-size:12px;opacity:0.95">Społeczność • Wydarzenia • Discord</div>
-      </div>
-    </div>
-    <nav>
-      <a href="#" style="color:rgba(255,255,255,0.95);text-decoration:none;margin-right:14px;font-weight:600">O nas</a>
-      <a href="#akcje" style="color:rgba(255,255,255,0.95);text-decoration:none;margin-right:12px">Wydarzenia</a>
-      <a href="#kontakt" style="color:rgba(255,255,255,0.95);text-decoration:none">Kontakt</a>
-    </nav>
-  </header>
+  <div class="container">
+    <div class="gear"></div>
+    <h1>STRONA W PRZEBUDOWIE</h1>
+    <p>Hej Króliki wracają w nowej odsłonie 🐰<br>W międzyczasie zapraszamy na nasz Discord!</p>
+    <a class="btn" href="https://discord.com/invite/9wKxdbnGmJ" target="_blank" rel="noopener noreferrer">Dołącz na Discord</a>
+  </div>
 
-  <main>
-    <div class="hero">
-      <div class="hero-card">
-        <h1>Witaj w społeczności <span style="color:var(--accent)">Hej Króliki</span></h1>
-        <p class="lead">Miejsce dla fanów królików, gier i dobrego humoru. Dołącz do naszego Discorda, zobacz nadchodzące wydarzenia i poznaj innych członków.</p>
-
-        <div class="cta">
-          <a class="btn btn-primary" href="https://discord.gg/" target="_blank" rel="noopener noreferrer" id="discordBtn">Dołącz na Discord</a>
-          <a class="btn btn-ghost" href="#akcje">Zobacz wydarzenia</a>
-        </div>
-
-        <section class="features" style="margin-top:22px">
-          <div class="feature">
-            <h4>Bezpieczna społeczność</h4>
-            <p>Moderowany serwer z jasnymi zasadami — przyjazne miejsce dla każdego.</p>
-          </div>
-          <div class="feature">
-            <h4>Wydarzenia</h4>
-            <p>Turnieje, spotkania online i konkursy z nagrodami co miesiąc.</p>
-          </div>
-          <div class="feature">
-            <h4>Materiały</h4>
-            <p>Poradniki, galeria fanartów i kolekcja memów króliczych 🐇</p>
-          </div>
-        </section>
-      </div>
-
-      <aside class="card-side">
-        <h3>Nadchodzące</h3>
-        <p style="margin-bottom:12px">Kolejne wydarzenie: <strong>Spotkanie społeczności — 21 października</strong></p>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;padding:10px;border-radius:10px;font-weight:700;text-align:center">Zapisz się</div>
-          <div style="background:transparent;padding:10px;border-radius:10px;border:1px dashed rgba(255,106,0,0.18);text-align:center">Zobacz regulamin</div>
-        </div>
-      </aside>
-    </div>
-
-    <section id="akcje" style="margin-top:30px">
-      <h2 style="margin:0 0 8px">Co robimy</h2>
-      <p style="margin:0 0 16px;color:var(--muted)">Kilka rzeczy, które możesz znaleźć w naszej społeczności.</p>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
-        <div style="background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,0.04)">
-          <h4>Turnieje</h4>
-          <p style="margin:6px 0 0;color:var(--muted)">Miesięczne rozgrywki w popularne gry — nagrody i rankingi.</p>
-        </div>
-        <div style="background:var(--card);padding:14px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,0.04)">
-          <h4>Art & Fanart</h4>
-          <p style="margin:6px 0 0;color:var(--muted)">Kanały kreatywne, konkursy grafiki i wspólne projekty.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="kontakt" style="margin-top:28px">
-      <h2 style="margin:0 0 8px">Kontakt</h2>
-      <p style="margin:0 0 12px;color:var(--muted)">Masz pytania? Napisz do nas na Discordzie lub e-mail: <strong>kontakt@hej-kroliki.pl</strong></p>
-
-      <form onsubmit="event.preventDefault();alert('Dziękujemy! (to demo — formularz nie wysyła danych)')" style="display:flex;flex-direction:column;gap:10px;max-width:520px">
-        <input placeholder="Twoje imię" required style="padding:10px;border-radius:8px;border:1px solid #eee" />
-        <input placeholder="Twój e-mail" type="email" required style="padding:10px;border-radius:8px;border:1px solid #eee" />
-        <textarea placeholder="Wiadomość" required rows="4" style="padding:10px;border-radius:8px;border:1px solid #eee"></textarea>
-        <button class="btn btn-primary" type="submit" style="width:160px">Wyślij</button>
-      </form>
-    </section>
-
-  </main>
-
-  <footer>
-    <div>© Hej Króliki — wszystkie prawa zastrzeżone</div>
-    <div style="display:flex;gap:12px">
-      <a href="#" style="color:var(--muted);text-decoration:none">Polityka prywatności</a>
-      <a href="#" style="color:var(--muted);text-decoration:none">Regulamin</a>
-    </div>
-  </footer>
-
-  <script>
-    // mała funkcja kopiująca link do Discord - tylko demo
-    document.getElementById('discordBtn').addEventListener('click', function(e){
-      // jeśli chcesz, możesz podmienić URL w href na swój Discord invite
-      // tutaj przykład pokazowy — nic nie blokujemy.
-    });
-  </script>
+  <footer>© Hej Króliki — wszystkie prawa zastrzeżone</footer>
 </body>
 </html>
