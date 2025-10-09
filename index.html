@@ -8,24 +8,24 @@
 
   <style>
     :root{
-      --bg:#fff7f0;
-      --accent:#ff6a00;
-      --accent-2:#ff8a3d;
+      --bg:#fff7f0;        /* very light orange */
+      --accent:#ff6a00;    /* bright orange */
+      --accent-2:#ff8a3d;  /* lighter orange */
       --muted:#6b6b6b;
       --card:#ffffff;
       --radius:14px;
       --maxw:980px;
+      --glass: rgba(255,255,255,0.6);
       color-scheme: light;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),#fff);}
 
-/* --------- Twój oryginalny styl (skrócony) ---------- */
     header{
       background:linear-gradient(90deg,var(--accent),var(--accent-2));
       color:white;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 6px 24px rgba(0,0,0,0.08);
-      position:relative;z-index:30;
     }
     .brand{display:flex;align-items:center;gap:12px;font-weight:700}
     .logo{width:46px;height:46px;border-radius:10px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:22px}
@@ -64,41 +64,6 @@
       .hero-card{padding:20px}
       .logo{width:40px;height:40px}
     }
-
-/* --------- Nowe style dla iframe full-screen i drawer --------- */
-    /* ukrywa scroll strony, kiedy aktywne */
-    body.no-scroll{overflow:hidden;height:100vh}
-
-/* pełnoekranowy iframe wydarzeń */
-    #externalFrame{
-      position:fixed;inset:0;z-index:40;display:none;align-items:stretch;justify-content:center;background:rgba(0,0,0,0.04);
-    }
-    #externalFrame.active{display:flex}
-    #externalFrame .frame-wrap{position:relative;width:100%;height:100%}
-    #externalFrame iframe{width:100%;height:100%;border:0;display:block}
-
-/* przycisk zamknięcia (górny lewy nad iframe) */
-    #externalFrame .close-btn{
-      position:absolute;left:16px;top:16px;z-index:45;background:rgba(0,0,0,0.6);color:white;padding:10px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700;
-    }
-
-/* wysuwany pasek z prawego górnego rogu */
-    .drawer-toggle{
-      position:fixed;top:14px;right:14px;z-index:50;
-      display:inline-flex;align-items:center;gap:8px;padding:10px;border-radius:12px;background:rgba(255,255,255,0.06);color:white;border:1px solid rgba(255,255,255,0.08);cursor:pointer;
-      box-shadow:0 6px 20px rgba(0,0,0,0.12)
-    }
-    .drawer{
-      position:fixed;top:56px;right:14px;z-index:49;width:360px;height:72vh;background:var(--card);border-radius:12px;box-shadow:0 14px 40px rgba(10,10,10,0.15);overflow:hidden;transform:translateX(120%);transition:transform .32s ease;
-    }
-    .drawer.open{transform:translateX(0)}
-    .drawer .header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid rgba(0,0,0,0.06)}
-    .drawer .header strong{font-size:14px}
-    .drawer iframe{width:100%;height:calc(100% - 44px);border:0;display:block}
-    /* responsywność - mniejsze drawer na małych ekranach */
-    @media (max-width:520px){
-      .drawer{right:8px;left:8px;width:auto;height:70vh;top:64px}
-    }
   </style>
 </head>
 <body>
@@ -112,13 +77,12 @@
     </div>
     <nav>
       <a href="#" style="color:rgba(255,255,255,0.95);text-decoration:none;margin-right:14px;font-weight:600">O nas</a>
-      <!-- ZMIANA: dodajemy id do linku, żeby JS łapał kliknięcie i otwierał iframe -->
-      <a href="#" id="openEvents" style="color:rgba(255,255,255,0.95);text-decoration:none;margin-right:12px">Wydarzenia</a>
+      <a href="#akcje" style="color:rgba(255,255,255,0.95);text-decoration:none;margin-right:12px">Wydarzenia</a>
       <a href="#kontakt" style="color:rgba(255,255,255,0.95);text-decoration:none">Kontakt</a>
     </nav>
   </header>
 
-  <main id="siteMain">
+  <main>
     <div class="hero">
       <div class="hero-card">
         <h1>Witaj w społeczności <span style="color:var(--accent)">Hej Króliki</span></h1>
@@ -126,7 +90,7 @@
 
         <div class="cta">
           <a class="btn btn-primary" href="https://discord.gg/" target="_blank" rel="noopener noreferrer" id="discordBtn">Dołącz na Discord</a>
-          <a class="btn btn-ghost" href="#" id="eventsBtnInline">Zobacz wydarzenia</a>
+          <a class="btn btn-ghost" href="#akcje">Zobacz wydarzenia</a>
         </div>
 
         <section class="features" style="margin-top:22px">
@@ -192,96 +156,12 @@
     </div>
   </footer>
 
-  <!-- FULLSCREEN IFRAME: tu ładuje się zewnętrzna strona wydarzeń -->
-  <div id="externalFrame" aria-hidden="true">
-    <div class="frame-wrap">
-      <button class="close-btn" id="closeFrame">Zamknij ✕</button>
-      <iframe id="extIframe" src="" title="Wydarzenia — Hej Króliki"></iframe>
-    </div>
-  </div>
-
-  <!-- Drawer (pasek wysuwany z prawego górnego rogu) -->
-  <button class="drawer-toggle" id="drawerToggle" aria-expanded="false">☰ Strona główna</button>
-  <aside class="drawer" id="drawer">
-    <div class="header">
-      <strong>Strona główna</strong>
-      <button id="drawerClose" style="background:none;border:0;cursor:pointer;font-weight:700">✕</button>
-    </div>
-    <!-- Tu ładujemy widok strony głównej w iframe.
-         Domyślny src to bieżący dokument (możesz ustawić inny URL). -->
-    <iframe id="homeIframe" src="" title="Strona główna — Hej Króliki"></iframe>
-  </aside>
-
   <script>
-    // --- KONFIGURACJA (możesz zmienić URL wydarzeń i homepage) ---
-    const EVENTS_URL = 'https://krosslos.github.io/hejkroliki/#wydarzenia'; // gdzie ma się otwierać
-    const HOMEPAGE_URL = window.location.origin + window.location.pathname; // adres do drawer (tu: ta sama strona)
-    // ----------------------------------------------------------
-
-    // elementy
-    const openEvents = document.getElementById('openEvents');
-    const eventsBtnInline = document.getElementById('eventsBtnInline');
-    const externalFrame = document.getElementById('externalFrame');
-    const extIframe = document.getElementById('extIframe');
-    const closeFrame = document.getElementById('closeFrame');
-
-    const drawer = document.getElementById('drawer');
-    const drawerToggle = document.getElementById('drawerToggle');
-    const drawerClose = document.getElementById('drawerClose');
-    const homeIframe = document.getElementById('homeIframe');
-
-    // ustawiamy iframe drawer na stronę główną (możesz podać inny URL)
-    homeIframe.src = HOMEPAGE_URL;
-
-    // funkcja otwierająca pełnoekranowy iframe z wydarzeniami
-    function openExternal(url){
-      extIframe.src = url;
-      externalFrame.classList.add('active');
-      externalFrame.setAttribute('aria-hidden','false');
-      document.body.classList.add('no-scroll');
-    }
-    function closeExternal(){
-      extIframe.src = ''; // wyczyść by zatrzymać ewentualne odtwarzanie
-      externalFrame.classList.remove('active');
-      externalFrame.setAttribute('aria-hidden','true');
-      document.body.classList.remove('no-scroll');
-    }
-
-    // handlery dla linków — blokujemy normalną nawigację i otwieramy iframe
-    openEvents.addEventListener('click', function(e){
-      e.preventDefault();
-      openExternal(EVENTS_URL);
+    // mała funkcja kopiująca link do Discord - tylko demo
+    document.getElementById('discordBtn').addEventListener('click', function(e){
+      // jeśli chcesz, możesz podmienić URL w href na swój Discord invite
+      // tutaj przykład pokazowy — nic nie blokujemy.
     });
-    eventsBtnInline.addEventListener('click', function(e){
-      e.preventDefault();
-      openExternal(EVENTS_URL);
-    });
-    closeFrame.addEventListener('click', closeExternal);
-
-    // drawer toggle
-    drawerToggle.addEventListener('click', function(){
-      const open = drawer.classList.toggle('open');
-      drawerToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      // jeśli otwieramy drawer, upewniamy się, że iframe strony głównej ma src (można lazy-load)
-      if(open && !homeIframe.src) homeIframe.src = HOMEPAGE_URL;
-    });
-    drawerClose.addEventListener('click', function(){ drawer.classList.remove('open'); drawerToggle.setAttribute('aria-expanded','false'); });
-
-    // zamykanie ESCem
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){
-        if(externalFrame.classList.contains('active')) closeExternal();
-        if(drawer.classList.contains('open')) { drawer.classList.remove('open'); drawerToggle.setAttribute('aria-expanded','false'); }
-      }
-    });
-
-    // opcjonalnie: jeśli chcesz, by kliknięcie w tle/overlay zamykało iframe:
-    externalFrame.addEventListener('click', function(e){
-      if(e.target === externalFrame) closeExternal();
-    });
-
-    // DODATKOWA opcja: jeśli chcesz, by linki wewnątrz iframe mogły otwierać nową zakładkę
-    // (nie zrobione automatycznie — zależy od samej strony w iframe i polityk CORS)
   </script>
 </body>
 </html>
