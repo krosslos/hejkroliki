@@ -3,120 +3,176 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hej Króliki 🐰 — Artykuł</title>
-  <meta name="description" content="Artykuł społeczności Hej Króliki — nowości, wydarzenia i aktualności.">
+  <title>Hej Króliki 🐰</title>
+  <meta name="description" content="Oficjalna strona społeczności Hej Króliki — Discord, wydarzenia i artykuły.">
 
   <style>
-    :root{
-      --bg:#fff7f0;
-      --accent:#ff6a00;
-      --accent-2:#ff8a3d;
-      --muted:#6b6b6b;
-      --card:#ffffff;
-      --radius:14px;
+    :root {
+      --bg: #fff7f0;
+      --accent: #ff6a00;
+      --accent-2: #ff8a3d;
+      --muted: #6b6b6b;
+      --card: #ffffff;
+      --radius: 14px;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;background:var(--bg);color:#222;}
-    
-    header{
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:white;
-      padding:18px 20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: #222;
     }
 
-    header a{
-      color:white;
-      text-decoration:none;
-      font-weight:600;
+    header {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     }
 
-    .article-container{
-      max-width:720px;
-      margin:50px auto;
-      background:white;
-      padding:40px 28px;
-      border-radius:var(--radius);
-      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    header h1 {
+      font-size: 20px;
+      font-weight: 700;
     }
 
-    h1{
-      font-size:34px;
-      color:var(--accent);
-      margin-bottom:10px;
+    header nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 18px;
+      transition: opacity .2s;
     }
 
-    .meta{
-      color:var(--muted);
-      font-size:14px;
-      margin-bottom:24px;
+    header nav a:hover {
+      opacity: 0.8;
     }
 
-    p{
-      line-height:1.7;
-      margin-bottom:18px;
-      color:#333;
-      font-size:16px;
+    main section {
+      display: none;
+      padding: 40px 20px;
     }
 
-    .btn-back{
-      display:inline-block;
-      margin-top:24px;
-      background:var(--accent);
-      color:white;
-      padding:10px 18px;
-      border-radius:999px;
-      text-decoration:none;
-      font-weight:600;
-      box-shadow:0 4px 14px rgba(255,106,0,0.25);
-      transition:all .25s ease;
+    #home {
+      display: block;
+      text-align: center;
     }
 
-    .btn-back:hover{
-      background:var(--accent-2);
-      transform:translateY(-2px);
+    #home h2 {
+      font-size: 40px;
+      color: var(--accent);
+      margin-bottom: 20px;
     }
 
-    footer{
-      text-align:center;
-      padding:20px;
-      font-size:13px;
-      color:var(--muted);
-      margin-top:40px;
+    #home p {
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      padding: 14px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 6px 18px rgba(255,106,0,0.25);
+      transition: all .25s ease;
+    }
+
+    .btn:hover {
+      background: var(--accent-2);
+      transform: translateY(-2px);
+    }
+
+    .article-container {
+      max-width: 720px;
+      margin: 50px auto;
+      background: white;
+      padding: 40px 28px;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .article-container h1 {
+      font-size: 34px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .article-container p {
+      line-height: 1.7;
+      margin-bottom: 18px;
+      color: #333;
+      font-size: 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div><strong>Hej Króliki 🐰</strong></div>
+    <h1>Hej Króliki 🐰</h1>
+    <nav>
+      <a href="#home">Strona główna</a>
+      <a href="#wpisy">Wpisy</a>
+    </nav>
   </header>
 
   <main>
-    <div class="article-container">
-      <!-- 🔶 Tytuł artykułu -->
-      <h1>WŁAM NA DC</h1>
-      
-      <!-- 🔶 Data + autor -->
-      <div class="meta">13 października 2025 • autor: <strong>Krosslos</strong></div>
-      
-      <!-- 🔶 Treść artykułu -->
-      <p>
-        W tym miesiący na discord włamał się jakiś "haker"
-        <strong>który wykradł chaty</strong> z supportem discorda,
-        nie martwcie się tym wszystko będzie dobrze!
+    <!-- 🏠 HOME -->
+    <section id="home">
+      <h2>Witaj na stronie Hej Króliki!</h2>
+      <p>Oficjalna strona naszej społeczności Discord. 🧡</p>
+      <a class="btn" href="https://discord.com/invite/9wKxdbnGmJ" target="_blank">Dołącz na Discord</a>
+    </section>
 
-
-      <!-- 🔶 Link powrotu -->
-    </div>
+    <!-- 📰 WPISY -->
+    <section id="wpisy">
+      <div class="article-container">
+        <h1>WŁAM NA DC</h1>
+        <div class="meta">13 października 2025 • autor: <strong>Krosslos</strong></div>
+        <p>
+          W tym miesiącu na Discord włamał się jakiś „haker”,
+          <strong>który wykradł chaty</strong> z supportem Discorda.
+          Nie martwcie się — wszystko będzie dobrze!
+        </p>
+      </div>
+    </section>
   </main>
 
   <footer>© Hej Króliki — wszystkie prawa zastrzeżone</footer>
+
+  <script>
+    function showSection() {
+      const hash = window.location.hash || '#home';
+      document.querySelectorAll('main section').forEach(sec => {
+        sec.style.display = (hash === '#' + sec.id) ? 'block' : 'none';
+      });
+    }
+
+    window.addEventListener('hashchange', showSection);
+    showSection();
+  </script>
 
 </body>
 </html>
