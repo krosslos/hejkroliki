@@ -126,7 +126,109 @@
       color: var(--muted);
       margin-top: 40px;
     }
+
+    /* Sekcja #wrapped - ukryta domyślnie */
+    .wrapped-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #121212;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .wrapped-overlay.active {
+      display: block;
+    }
+
+    .wrapped-container {
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .wrapped-title {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #1DB954, #1ed760);
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      text-align: center;
+      padding-top: 60px;
+    }
+
+    .wrapped-subtitle {
+      font-size: 1.5rem;
+      color: #b3b3b3;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .wrapped-slide {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1DB954, #191414);
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .wrapped-counter {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #1DB954;
+      margin: 1rem 0;
+    }
+
+    .wrapped-content {
+      font-size: 1.5rem;
+      text-align: center;
+      max-width: 80%;
+      margin: 0 auto 2rem;
+      color: #b3b3b3;
+    }
+
+    #nextBtn {
+      padding: 12px 24px;
+      background: #1DB954;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 2rem;
+    }
+
+    #nextBtn:hover {
+      background: #1ed760;
+      transform: scale(1.05);
+    }
+
+    .close-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
   </style>
+
+  <!-- Dodajemy czcionkę Montserrat dla sekcji #wrapped -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -143,7 +245,7 @@
     <section id="home">
       <h2>Witaj na stronie Hej Króliki!</h2>
       <p>Oficjalna strona naszej społeczności Discord. 🧡</p>
-      <a class="btn" href="https://krosslos.github.io/hejkroliki/#wpisy" target="_blank">Dołącz na Discord</a>
+      <a class="btn" href="https://discord.gg/..." target="_blank">Dołącz na Discord</a>
     </section>
 
     <!-- 📰 WPISY -->
@@ -160,19 +262,141 @@
     </section>
   </main>
 
+  <!-- Sekcja #wrapped - zupełnie inny styl -->
+  <div id="wrapped-overlay" class="wrapped-overlay">
+    <button class="close-btn" onclick="window.location.hash = ''">✕</button>
+    <div class="wrapped-container" style="font-family: 'Montserrat', sans-serif;">
+      <!-- Slajd 1: Wprowadzenie -->
+      <div class="wrapped-slide">
+        <h1 class="wrapped-title">#wrapped</h1>
+        <p class="wrapped-subtitle">Podsumowanie roku 2025 na serwerze</p>
+        <button id="nextBtn" onclick="showSlide(1)">Dalej →</button>
+      </div>
+
+      <!-- Slajd 2: "kurwa" -->
+      <div class="wrapped-slide" style="display: none;">
+        <h2 class="wrapped-subtitle">Najczęściej używane słowo</h2>
+        <h3 class="wrapped-title">"kurwa"</h3>
+        <div class="wrapped-counter" id="counter1">0x</div>
+        <button id="nextBtn" onclick="showSlide(2)">Dalej →</button>
+      </div>
+
+      <!-- Slajd 3: "chuj/huj" -->
+      <div class="wrapped-slide" style="display: none;">
+        <h2 class="wrapped-subtitle">Najczęściej używane słowo</h2>
+        <h3 class="wrapped-title">"chuj/huj"</h3>
+        <div class="wrapped-counter" id="counter2">0x</div>
+        <button id="nextBtn" onclick="showSlide(3)">Dalej →</button>
+      </div>
+
+      <!-- Slajd 4: "spierdalaj" -->
+      <div class="wrapped-slide" style="display: none;">
+        <h2 class="wrapped-subtitle">Najczęściej używane słowo</h2>
+        <h3 class="wrapped-title">"spierdalaj"</h3>
+        <p class="wrapped-content">(specjalne wyróżnienie: @konstal57)</p>
+        <div class="wrapped-counter" id="counter3">0x</div>
+        <button id="nextBtn" onclick="showSlide(4)">Dalej →</button>
+      </div>
+
+      <!-- Slajd 5: Dramy roku -->
+      <div class="wrapped-slide" style="display: none;">
+        <h2 class="wrapped-title">Dramy roku</h2>
+        <p class="wrapped-content">@orledo vs @KONSTAL57, @KROSSLOS, @Dobryniko 😈</p>
+        <button id="nextBtn" onclick="showSlide(5)">Dalej →</button>
+      </div>
+
+      <!-- Slajd 6: Top 3 aktywni -->
+      <div class="wrapped-slide" style="display: none;">
+        <h2 class="wrapped-subtitle">Najaktywniejsi użytkownicy</h2>
+        <div class="wrapped-content">
+          <p><strong>1. @dobryniko</strong></p>
+          <p><strong>2. @konstal57</strong></p>
+          <p><strong>3. @krosslos</strong></p>
+        </div>
+        <button id="nextBtn" onclick="showSlide(6)">Dalej →</button>
+      </div>
+
+      <!-- Slajd 7: Staż & wejścia/wyjścia -->
+      <div class="wrapped-slide" style="display: none;">
+        <h2 class="wrapped-subtitle">Staż & wejścia/wyjścia</h2>
+        <div class="wrapped-content">
+          <p><strong>Najwięcej wychodził:</strong> @orledo</p>
+          <p><strong>Najwięcej wchodził:</strong> @orledo</p>
+          <p><strong>Najkrótszy staż:</strong> @orledo</p>
+          <p><strong>Najwięcej czasu na VC:</strong> @krosslos</p>
+          <p><strong>Najwięcej zgłoszeń:</strong> @orledo</p>
+        </div>
+        <button id="nextBtn" onclick="showSlide(7)">Dalej →</button>
+      </div>
+
+      <!-- Slajd 8: Najmniej aktywni -->
+      <div class="wrapped-slide" style="display: none;">
+        <h2 class="wrapped-subtitle">Najmniej aktywni</h2>
+        <p class="wrapped-content">@c_c, @Marycha, @runic_krzychu</p>
+        <button id="nextBtn" onclick="showSlide(8)">Dalej →</button>
+      </div>
+
+      <!-- Slajd 9: Top 3 mutów -->
+      <div class="wrapped-slide" style="display: none;">
+        <h2 class="wrapped-subtitle">Najwięcej mutów</h2>
+        <div class="wrapped-content">
+          <p><strong>1. @dobryniko</strong></p>
+          <p><strong>2. @krosslos</strong></p>
+          <p><strong>3. @konstal</strong></p>
+        </div>
+        <button id="nextBtn" onclick="window.location.hash = ''">Powrót →</button>
+      </div>
+    </div>
+  </div>
+
   <footer>© Hej Króliki — wszystkie prawa zastrzeżone</footer>
 
   <script>
+    // Przełączanie sekcji #home i #wpisy
     function showSection() {
       const hash = window.location.hash || '#home';
       document.querySelectorAll('main section').forEach(sec => {
         sec.style.display = (hash === '#' + sec.id) ? 'block' : 'none';
       });
+
+      // Pokazanie sekcji #wrapped
+      if (hash === '#wrapped') {
+        document.getElementById('wrapped-overlay').classList.add('active');
+        animateCounter('counter1', 155);
+      } else {
+        document.getElementById('wrapped-overlay').classList.remove('active');
+      }
+    }
+
+    // Animacja liczników
+    function animateCounter(id, target) {
+      const counter = document.getElementById(id);
+      let count = 0;
+      const increment = target / 50;
+      const timer = setInterval(() => {
+        count += increment;
+        if (count >= target) {
+          count = target;
+          clearInterval(timer);
+        }
+        counter.textContent = Math.floor(count) + 'x';
+      }, 20);
+    }
+
+    // Przełączanie slajdów w #wrapped
+    function showSlide(slideNumber) {
+      document.querySelectorAll('.wrapped-slide').forEach((slide, index) => {
+        slide.style.display = (index + 1 === slideNumber) ? 'flex' : 'none';
+      });
+
+      // Animacja liczników dla odpowiednich slajdów
+      if (slideNumber === 2) animateCounter('counter1', 155);
+      if (slideNumber === 3) animateCounter('counter2', 40);
+      if (slideNumber === 4) animateCounter('counter3', 23);
     }
 
     window.addEventListener('hashchange', showSection);
     showSection();
   </script>
-
 </body>
 </html>
