@@ -6,6 +6,7 @@
   <title>Hej Króliki 🐰</title>
   <meta name="description" content="Oficjalna strona społeczności Hej Króliki — Discord, wydarzenia i artykuły.">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --bg: #fff7f0;
@@ -127,7 +128,9 @@
       margin-top: 40px;
     }
 
-    /* Sekcja #wrapped */
+    /* ======================== */
+    /* NOWA SEKCJA WRAPPED - ANIMACJE */
+    /* ======================== */
     .wrapped-overlay {
       display: none;
       position: fixed;
@@ -135,7 +138,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: #121212;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
       z-index: 1000;
       overflow-y: auto;
       font-family: 'Montserrat', sans-serif;
@@ -145,56 +148,146 @@
       display: block;
     }
 
-    .wrapped-slide {
+    .wrapped-container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .wrapped-slide {
+      min-height: 80vh;
       display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #1DB954, #191414);
-      color: white;
-      padding: 40px 20px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .wrapped-slide.active {
       display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Animacje dla elementów w slajdach */
+    .animate-typing {
+      display: inline-block;
+      overflow: hidden;
+      border-right: 3px solid #1DB954;
+      white-space: nowrap;
+      animation: typing 1.5s steps(20, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #1DB954; }
+    }
+
+    .animate-slideUp {
+      animation: slideUp 0.8s ease 0.3s both;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-bounceIn {
+      animation: bounceIn 1s ease 0.5s both;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+      }
     }
 
     .wrapped-title {
       font-size: 4rem;
       font-weight: 800;
-      background: linear-gradient(45deg, #1DB954, #1ed760);
+      background: linear-gradient(45deg, #1DB954, #1ed760, #1DB954);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       color: transparent;
       margin-bottom: 1rem;
       text-align: center;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     .wrapped-subtitle {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: #b3b3b3;
       margin-bottom: 2rem;
-      text-align: center;
+      font-weight: 500;
+    }
+
+    .wrapped-desc {
+      font-size: 1.2rem;
+      color: #888;
+      margin-bottom: 2rem;
+      max-width: 80%;
     }
 
     .wrapped-counter {
-      font-size: 4rem;
+      font-size: 5rem;
       font-weight: 800;
       color: #1DB954;
-      margin: 1rem 0;
+      margin: 2rem 0;
+      text-shadow: 0 0 20px rgba(29, 185, 84, 0.4);
     }
 
     .wrapped-content {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       text-align: center;
-      max-width: 80%;
+      max-width: 90%;
       margin: 0 auto 2rem;
-      color: #b3b3b3;
+      color: #ddd;
     }
 
-    #nextBtn {
-      padding: 12px 24px;
-      background: #1DB954;
+    .highlight {
+      color: #1DB954;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+    }
+
+    .next-btn {
+      padding: 16px 32px;
+      background: linear-gradient(90deg, #1DB954, #1ed760);
       color: white;
       border: none;
       border-radius: 50px;
@@ -202,27 +295,219 @@
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-top: 2rem;
+      margin-top: 3rem;
+      box-shadow: 0 6px 20px rgba(29, 185, 84, 0.3);
     }
 
-    #nextBtn:hover {
-      background: #1ed760;
-      transform: scale(1.05);
+    .next-btn:hover {
+      background: linear-gradient(90deg, #1ed760, #1DB954);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(29, 185, 84, 0.5);
     }
 
     .close-btn {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(255, 255, 255, 0.1);
       color: white;
       border: none;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 1.2rem;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
       cursor: pointer;
       z-index: 1001;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: rotate(90deg);
+    }
+
+    /* Kropki nawigacyjne */
+    .wrapped-dots {
+      display: flex;
+      justify-content: center;
+      position: fixed;
+      bottom: 30px;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      margin: 0 8px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: #1DB954;
+      transform: scale(1.3);
+      box-shadow: 0 0 10px #1DB954;
+    }
+
+    /* Specjalne style dla konkretnych slajdów */
+    .drama-item {
+      font-size: 1.8rem;
+      margin: 15px 0;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      width: 80%;
+      animation: fadeInLeft 0.8s ease both;
+    }
+
+    .vs {
+      color: #ff6a00;
+      font-weight: 800;
+      margin: 0 15px;
+      font-size: 1.5rem;
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .user-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 20px;
+      margin: 15px;
+      width: 200px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s ease;
+      animation: fadeInUp 0.8s ease both;
+    }
+
+    .user-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(29, 185, 84, 0.2);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .user-rank {
+      font-size: 2.5rem;
+      color: #1DB954;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .user-name {
+      font-size: 1.5rem;
+      color: white;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .user-stats {
+      color: #b3b3b3;
+      font-size: 1rem;
+    }
+
+    .top-users-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 2rem 0;
+    }
+
+    .stats-row {
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      margin: 10px 0;
+      animation: fadeInRight 0.8s ease both;
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .stats-label {
+      color: #b3b3b3;
+      font-size: 1.2rem;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+
+    .stats-value {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: left;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stats-value .highlight {
+      float: right;
+    }
+
+    /* Responsywność */
+    @media (max-width: 768px) {
+      .wrapped-title {
+        font-size: 2.8rem;
+      }
+      
+      .wrapped-subtitle {
+        font-size: 1.4rem;
+      }
+      
+      .wrapped-counter {
+        font-size: 3.5rem;
+      }
+      
+      .wrapped-content {
+        font-size: 1.3rem;
+      }
+      
+      .drama-item {
+        font-size: 1.4rem;
+        width: 95%;
+      }
+      
+      .top-users-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .user-card {
+        width: 90%;
+        max-width: 300px;
+      }
     }
   </style>
 </head>
@@ -258,90 +543,208 @@
     </section>
   </main>
 
-  <!-- Sekcja #wrapped -->
+  <!-- Sekcja #wrapped Z ANIMACJAMI -->
   <div id="wrapped-overlay" class="wrapped-overlay">
-    <button class="close-btn" onclick="window.location.hash = '#home'">✕</button>
+    <button class="close-btn" onclick="window.location.hash = '#home'">
+      <i class="fas fa-times"></i>
+    </button>
+    
     <div class="wrapped-container">
       <!-- Slajd 1: Wprowadzenie -->
       <div id="wrapped-slide-1" class="wrapped-slide active">
-        <h1 class="wrapped-title">#wrapped</h1>
-        <p class="wrapped-subtitle">Podsumowanie roku 2025 na serwerze</p>
-        <button id="nextBtn" onclick="showSlide(2)">Dalej →</button>
+        <h1 class="wrapped-title animate-bounceIn">#wrapped 2025</h1>
+        <p class="wrapped-subtitle animate-slideUp">Podsumowanie roku na serwerze Hej Króliki</p>
+        <p class="wrapped-desc animate-slideUp">Przygotuj się na statystyki, dramy i niespodzianki!</p>
+        <button class="next-btn animate-slideUp" onclick="showSlide(2)">
+          Rozpocznij podsumowanie <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- Slajd 2: "kurwa" -->
       <div id="wrapped-slide-2" class="wrapped-slide">
-        <h2 class="wrapped-subtitle">Najczęściej używane słowo</h2>
-        <h3 class="wrapped-title">"kurwa"</h3>
-        <div class="wrapped-counter" id="counter1">0x</div>
-        <button id="nextBtn" onclick="showSlide(3)">Dalej →</button>
+        <h2 class="wrapped-subtitle animate-slideUp">Najczęściej używane słowo</h2>
+        <h3 class="wrapped-title animate-typing">"kurwa"</h3>
+        <p class="wrapped-desc animate-slideUp">Słowo wyrażające wszystkie emocje społeczności</p>
+        <div class="wrapped-counter animate-bounceIn" id="counter1" data-target="155">0x</div>
+        <button class="next-btn" onclick="showSlide(3)">
+          Dalej <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- Slajd 3: "chuj/huj" -->
       <div id="wrapped-slide-3" class="wrapped-slide">
-        <h2 class="wrapped-subtitle">Najczęściej używane słowo</h2>
-        <h3 class="wrapped-title">"chuj/huj"</h3>
-        <div class="wrapped-counter" id="counter2">0x</div>
-        <button id="nextBtn" onclick="showSlide(4)">Dalej →</button>
+        <h2 class="wrapped-subtitle animate-slideUp">Najczęściej używane słowo</h2>
+        <h3 class="wrapped-title animate-typing">"chuj/huj"</h3>
+        <p class="wrapped-desc animate-slideUp">Wyraz miłych intencji i koleżeństwa</p>
+        <div class="wrapped-counter animate-bounceIn" id="counter2" data-target="40">0x</div>
+        <button class="next-btn" onclick="showSlide(4)">
+          Dalej <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- Slajd 4: "spierdalaj" -->
       <div id="wrapped-slide-4" class="wrapped-slide">
-        <h2 class="wrapped-subtitle">Najczęściej używane słowo</h2>
-        <h3 class="wrapped-title">"spierdalaj"</h3>
-        <p class="wrapped-content">(specjalne wyróżnienie: @konstal57)</p>
-        <div class="wrapped-counter" id="counter3">0x</div>
-        <button id="nextBtn" onclick="showSlide(5)">Dalej →</button>
+        <h2 class="wrapped-subtitle animate-slideUp">Najczęściej używane słowo</h2>
+        <h3 class="wrapped-title animate-typing">"spierdalaj"</h3>
+        <p class="wrapped-desc animate-slideUp">Specjalne wyróżnienie: <span class="highlight">@konstal57</span></p>
+        <div class="wrapped-counter animate-bounceIn" id="counter3" data-target="23">0x</div>
+        <button class="next-btn" onclick="showSlide(5)">
+          Dalej <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- Slajd 5: Dramy roku -->
       <div id="wrapped-slide-5" class="wrapped-slide">
-        <h2 class="wrapped-title">Dramy roku</h2>
-        <p class="wrapped-content">@orledo vs @KONSTAL57, @KROSSLOS, @Dobryniko 😈</p>
-        <button id="nextBtn" onclick="showSlide(6)">Dalej →</button>
+        <h2 class="wrapped-title animate-slideUp">Dramy roku 🎭</h2>
+        <p class="wrapped-subtitle animate-slideUp">Walki, które wstrząsnęły serwerem</p>
+        
+        <div class="wrapped-content">
+          <div class="drama-item" style="animation-delay: 0.2s">
+            @orledo <span class="vs">VS</span> @KONSTAL57
+          </div>
+          <div class="drama-item" style="animation-delay: 0.4s">
+            @orledo <span class="vs">VS</span> @KROSSLOS
+          </div>
+          <div class="drama-item" style="animation-delay: 0.6s">
+            @orledo <span class="vs">VS</span> @Dobryniko
+          </div>
+        </div>
+        
+        <p class="wrapped-desc animate-slideUp" style="animation-delay: 0.8s">
+          @orledo - niekwestionowany król dramatów 2025
+        </p>
+        
+        <button class="next-btn animate-slideUp" style="animation-delay: 1s" onclick="showSlide(6)">
+          Dalej <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- Slajd 6: Top 3 aktywni -->
       <div id="wrapped-slide-6" class="wrapped-slide">
-        <h2 class="wrapped-subtitle">Najaktywniejsi użytkownicy</h2>
-        <div class="wrapped-content">
-          <p><strong>1. @dobryniko</strong></p>
-          <p><strong>2. @konstal57</strong></p>
-          <p><strong>3. @krosslos</strong></p>
+        <h2 class="wrapped-title animate-slideUp">Top 3 aktywni</h2>
+        <p class="wrapped-subtitle animate-slideUp">Królowie czatu i VC</p>
+        
+        <div class="top-users-container">
+          <div class="user-card" style="animation-delay: 0.2s">
+            <div class="user-rank">🥇</div>
+            <div class="user-name">@dobryniko</div>
+            <div class="user-stats">Master of Messages</div>
+          </div>
+          
+          <div class="user-card" style="animation-delay: 0.4s">
+            <div class="user-rank">🥈</div>
+            <div class="user-name">@konstal57</div>
+            <div class="user-stats">Vice Toxicity</div>
+          </div>
+          
+          <div class="user-card" style="animation-delay: 0.6s">
+            <div class="user-rank">🥉</div>
+            <div class="user-name">@krosslos</div>
+            <div class="user-stats">Voice Chat Legend</div>
+          </div>
         </div>
-        <button id="nextBtn" onclick="showSlide(7)">Dalej →</button>
+        
+        <button class="next-btn animate-slideUp" style="animation-delay: 0.8s" onclick="showSlide(7)">
+          Dalej <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- Slajd 7: Staż & wejścia/wyjścia -->
       <div id="wrapped-slide-7" class="wrapped-slide">
-        <h2 class="wrapped-subtitle">Staż & wejścia/wyjścia</h2>
+        <h2 class="wrapped-title animate-slideUp">Rekordy serwera</h2>
+        <p class="wrapped-subtitle animate-slideUp">Niepobite osiągnięcia 2025</p>
+        
         <div class="wrapped-content">
-          <p><strong>Najwięcej wychodził:</strong> @orledo</p>
-          <p><strong>Najwięcej wchodził:</strong> @orledo</p>
-          <p><strong>Najkrótszy staż:</strong> @orledo</p>
-          <p><strong>Najwięcej czasu na VC:</strong> @krosslos</p>
-          <p><strong>Najwięcej zgłoszeń:</strong> @orledo</p>
+          <div class="stats-row" style="animation-delay: 0.2s">
+            <div class="stats-label">Najwięcej wychodził/wchodził</div>
+            <div class="stats-value">@orledo <span class="highlight">12 razy</span></div>
+          </div>
+          
+          <div class="stats-row" style="animation-delay: 0.4s">
+            <div class="stats-label">Najkrótszy staż</div>
+            <div class="stats-value">@orledo <span class="highlight">77 DNI</span></div>
+          </div>
+          
+          <div class="stats-row" style="animation-delay: 0.6s">
+            <div class="stats-label">Najwięcej czasu na VC</div>
+            <div class="stats-value">@krosslos <span class="highlight">23 godzin</span></div>
+          </div>
+          
+          <div class="stats-row" style="animation-delay: 0.8s">
+            <div class="stats-label">Najwięcej zgłoszeń</div>
+            <div class="stats-value">@orledo <span class="highlight">10 razy</span></div>
+          </div>
         </div>
-        <button id="nextBtn" onclick="showSlide(8)">Dalej →</button>
+        
+        <button class="next-btn animate-slideUp" style="animation-delay: 1s" onclick="showSlide(8)">
+          Dalej <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- Slajd 8: Najmniej aktywni -->
       <div id="wrapped-slide-8" class="wrapped-slide">
-        <h2 class="wrapped-subtitle">Najmniej aktywni</h2>
-        <p class="wrapped-content">@c_c, @Marycha, @runic_krzychu</p>
-        <button id="nextBtn" onclick="showSlide(9)">Dalej →</button>
+        <h2 class="wrapped-title animate-slideUp">Duchy serwera 👻</h2>
+        <p class="wrapped-subtitle animate-slideUp">Najmniej aktywni użytkownicy</p>
+        
+        <div class="wrapped-content">
+          <div class="drama-item" style="animation-delay: 0.2s">
+            <i class="fas fa-ghost"></i> @c_c
+          </div>
+          <div class="drama-item" style="animation-delay: 0.4s">
+            <i class="fas fa-ghost"></i> @Marycha
+          </div>
+          <div class="drama-item" style="animation-delay: 0.6s">
+            <i class="fas fa-ghost"></i> @runic_krzychu
+          </div>
+        </div>
+        
+        <p class="wrapped-desc animate-slideUp" style="animation-delay: 0.8s">
+          Pojawiają się tylko przy pełni księżyca
+        </p>
+        
+        <button class="next-btn animate-slideUp" style="animation-delay: 1s" onclick="showSlide(9)">
+          Dalej <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
       <!-- Slajd 9: Top 3 mutów -->
       <div id="wrapped-slide-9" class="wrapped-slide">
-        <h2 class="wrapped-subtitle">Najwięcej mutów</h2>
-        <div class="wrapped-content">
-          <p><strong>1. @dobryniko</strong></p>
-          <p><strong>2. @krosslos</strong></p>
-          <p><strong>3. @konstal</strong></p>
+        <h2 class="wrapped-title animate-slideUp">Top 3 mutów 🔇</h2>
+        <p class="wrapped-subtitle animate-slideUp">Mistrzowie ciszy</p>
+        
+        <div class="top-users-container">
+          <div class="user-card" style="animation-delay: 0.2s">
+            <div class="user-rank"><i class="fas fa-volume-mute"></i></div>
+            <div class="user-name">@dobryniko</div>
+            <div class="user-stats">47 mutów</div>
+          </div>
+          
+          <div class="user-card" style="animation-delay: 0.4s">
+            <div class="user-rank"><i class="fas fa-volume-off"></i></div>
+            <div class="user-name">@krosslos</div>
+            <div class="user-stats">13 mutów</div>
+          </div>
+          
+          <div class="user-card" style="animation-delay: 0.6s">
+            <div class="user-rank"><i class="fas fa-volume-down"></i></div>
+            <div class="user-name">@konstal</div>
+            <div class="user-stats">9 mutów</div>
+          </div>
         </div>
-        <button id="nextBtn" onclick="window.location.hash = '#home'">Powrót →</button>
+        
+        <p class="wrapped-desc animate-slideUp" style="animation-delay: 0.8s">
+          Dziękujemy za wspólnie spędzony rok!
+        </p>
+        
+        <button class="next-btn animate-slideUp" style="animation-delay: 1s" onclick="window.location.hash = '#home'">
+          Zakończ podsumowanie <i class="fas fa-home"></i>
+        </button>
       </div>
+    </div>
+    
+    <!-- Kropki nawigacyjne -->
+    <div class="wrapped-dots" id="wrappedDots">
+      <!-- Kropki będą generowane przez JavaScript -->
     </div>
   </div>
 
@@ -355,45 +758,147 @@
         sec.style.display = (hash === '#' + sec.id) ? 'block' : 'none';
       });
 
-      // Pokazanie sekcji #wrapped
+      // Pokazanie sekcji #wrapped z animacjami
       if (hash === '#wrapped') {
         document.getElementById('wrapped-overlay').classList.add('active');
         showSlide(1);
+        createDots();
       } else {
         document.getElementById('wrapped-overlay').classList.remove('active');
       }
     }
 
-    // Przełączanie slajdów w #wrapped
+    // Zmienna do śledzenia aktualnego slajdu
+    let currentSlide = 1;
+    const totalSlides = 9;
+
+    // Funkcja do pokazywania slajdu
     function showSlide(slideNumber) {
+      currentSlide = slideNumber;
+      
+      // Ukrywamy wszystkie slajdy
       document.querySelectorAll('.wrapped-slide').forEach(slide => {
         slide.classList.remove('active');
       });
-      document.getElementById(`wrapped-slide-${slideNumber}`).classList.add('active');
+      
+      // Pokazujemy wybrany slajd
+      const targetSlide = document.getElementById(`wrapped-slide-${slideNumber}`);
+      if (targetSlide) {
+        targetSlide.classList.add('active');
+        
+        // Resetujemy animacje elementów wewnątrz slajdu
+        setTimeout(() => {
+          const animatedElements = targetSlide.querySelectorAll('.animate-slideUp, .animate-typing, .animate-bounceIn');
+          animatedElements.forEach(el => {
+            // Reset animacji
+            el.style.animation = 'none';
+            setTimeout(() => {
+              el.style.animation = '';
+            }, 10);
+          });
+        }, 50);
+        
+        // Uruchamiamy animacje liczników dla odpowiednich slajdów
+        if (slideNumber >= 2 && slideNumber <= 4) {
+          setTimeout(() => {
+            animateCounter(`counter${slideNumber-1}`);
+          }, 500);
+        }
+        
+        // Aktualizujemy kropki nawigacyjne
+        updateDots();
+      }
+    }
 
-      // Animacja liczników dla odpowiednich slajdów
-      if (slideNumber === 2) animateCounter('counter1', 155);
-      if (slideNumber === 3) animateCounter('counter2', 40);
-      if (slideNumber === 4) animateCounter('counter3', 23);
+    // Funkcja do tworzenia kropek nawigacyjnych
+    function createDots() {
+      const dotsContainer = document.getElementById('wrappedDots');
+      dotsContainer.innerHTML = '';
+      
+      for (let i = 1; i <= totalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        if (i === 1) dot.classList.add('active');
+        dot.dataset.slide = i;
+        dot.addEventListener('click', () => showSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    // Funkcja do aktualizacji aktywnych kropek
+    function updateDots() {
+      document.querySelectorAll('.dot').forEach((dot, index) => {
+        if (index + 1 === currentSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
     }
 
     // Animacja liczników
-    function animateCounter(id, target) {
-      const counter = document.getElementById(id);
-      let count = 0;
-      const increment = target / 50;
+    function animateCounter(counterId) {
+      const counter = document.getElementById(counterId);
+      if (!counter) return;
+      
+      const target = parseInt(counter.getAttribute('data-target'));
+      let current = 0;
+      const increment = target / 40; // Szybkość animacji
+      
       const timer = setInterval(() => {
-        count += increment;
-        if (count >= target) {
-          count = target;
+        current += increment;
+        if (current >= target) {
+          current = target;
           clearInterval(timer);
         }
-        counter.textContent = Math.floor(count) + 'x';
-      }, 20);
+        counter.textContent = Math.floor(current) + 'x';
+        
+        // Dodaj efekt "pulsowania" przy końcu
+        if (current >= target * 0.9) {
+          counter.style.transform = `scale(${1 + 0.05 * Math.sin(Date.now() / 100)})`;
+        }
+      }, 30);
     }
 
+    // Nawigacja klawiszami
+    document.addEventListener('keydown', (e) => {
+      if (!document.getElementById('wrapped-overlay').classList.contains('active')) return;
+      
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        // Strzałka w prawo lub spacja - następny slajd
+        if (currentSlide < totalSlides) {
+          showSlide(currentSlide + 1);
+        } else {
+          showSlide(1);
+        }
+        e.preventDefault();
+      } else if (e.key === 'ArrowLeft') {
+        // Strzałka w lewo - poprzedni slajd
+        if (currentSlide > 1) {
+          showSlide(currentSlide - 1);
+        } else {
+          showSlide(totalSlides);
+        }
+        e.preventDefault();
+      } else if (e.key === 'Escape') {
+        // Escape - zamknij wrapped
+        window.location.hash = '#home';
+      }
+    });
+
+    // Inicjalizacja po załadowaniu strony
+    window.addEventListener('DOMContentLoaded', () => {
+      showSection();
+      
+      // Dodaj obsługę kliknięcia w tło do zamknięcia (opcjonalnie)
+      document.getElementById('wrapped-overlay').addEventListener('click', (e) => {
+        if (e.target.classList.contains('wrapped-overlay')) {
+          window.location.hash = '#home';
+        }
+      });
+    });
+
     window.addEventListener('hashchange', showSection);
-    showSection();
   </script>
 </body>
 </html>
