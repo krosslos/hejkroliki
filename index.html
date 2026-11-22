@@ -270,12 +270,18 @@ body.universe-on #deck,body.universe-on #hud,body.universe-on #nav,body.universe
 #admin-feedback{color:#b9e99b;font:11px ui-monospace,monospace;margin-right:auto;min-width:0;overflow-wrap:anywhere}
 @media(max-width:700px){.admin-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-person-grid,.admin-phrases{grid-template-columns:1fr}.admin-person .admin-fields{grid-template-columns:1fr 1fr}.admin-person .admin-fields label:first-child{grid-column:span 2}.admin-action.primary{margin-left:0}}
 @media(max-width:425px){#admin-panel{width:calc(100vw - 10px);max-height:97dvh}.admin-header{padding:15px}.admin-scroller{padding:10px}.admin-actions{padding:10px}.admin-action{padding:10px;font-size:11px}}
+
+/* Logo serwera z hejkroliki.png. Tekst HK pozostaje, gdy obrazka nie ma. */
+#admin-logo .brand-icon{position:relative;overflow:hidden;flex-shrink:0}
+#admin-logo .brand-icon img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
+#admin-logo .brand-icon .brand-fallback[hidden]{display:none}
 </style>
+<link rel="icon" type="image/png" href="hejkroliki.png">
 </head>
 <body>
 <div id="deck" aria-live="polite"></div>
 <div id="streaks" aria-hidden="true"></div>
-<header id="hud"><div class="brand" id="admin-logo" role="button" tabindex="0" title="Kliknij dwukrotnie, aby otworzyć panel administratora" aria-label="Panel administratora: podwójne kliknięcie"><div class="brand-icon">HK</div>HEJ KRÓLIKI</div><div class="year">WRAPPED <span style="color:var(--accent)">2026</span></div></header>
+<header id="hud"><div class="brand" id="admin-logo" role="button" tabindex="0" title="Kliknij dwukrotnie, aby otworzyć panel administratora" aria-label="Panel administratora: podwójne kliknięcie"><div class="brand-icon"><span class="brand-fallback">HK</span><img src="hejkroliki.png" alt="" decoding="async" onload="this.previousElementSibling.hidden=true" onerror="this.remove()"></div>HEJ KRÓLIKI</div><div class="year">WRAPPED <span style="color:var(--accent)">2026</span></div></header>
 <div id="progress-track"><div id="progress-fill"></div></div>
 <footer id="nav"><div id="counter"><b>01</b> / 18</div><div class="buttons"><button class="navbtn" id="prev" type="button">← Wstecz</button><button class="navbtn primary" id="next" type="button">Dalej →</button></div></footer>
 
